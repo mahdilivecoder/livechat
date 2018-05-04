@@ -1,0 +1,18 @@
+{
+  "name": "social_media",
+  "version": "1.0.0",
+  "description": "This is a test chat messenger",
+  "main": "server.js",
+  "scripts": {
+    "start":"node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines":{
+    "node":"8.11.1"
+  },
+  "author": "Livecoder",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
