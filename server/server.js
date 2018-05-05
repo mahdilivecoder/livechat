@@ -19,7 +19,6 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
        console.log('User is disconnected!');
     });
-    socket.emit('newMessage',generateMessage('Admin@admin.com','Hi a am mehdi or livecoder'));
     socket.broadcast.emit('newMessage',generateMessage('Livecoder@live.com',"Hi i am livecoder and ..."));
     socket.on('createMessage',(message)=>{
        console.log('createMessage',message);
