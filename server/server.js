@@ -3,7 +3,7 @@ const path=require('path');
 const http=require('http');
 const express=require('express');
 const socketIo=require('socket.io');
-
+const {generateMessage}=require('./utils/message');
 const publicPath=path.join(__dirname,'../public');
 const port=process.env.PORT || 3000;
 
@@ -19,23 +19,11 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
        console.log('User is disconnected!');
     });
-    socket.emit('newMessage',{
-      from:"livecoder@live.com",
-      text:"This is a chat app as a livecoder",
-        createdAt:new Date().getTime()
-    });
-    socket.broadcast.emit('newMessage',{
-       from:"live@livecoder.com",
-       text:"Hi this is a broadcast as admin! and New use has been joined!",
-       createdAt:new Date().getTime()
-    });
+    socket.emit('newMessage',generateMessage('Admin@admin.com','Hi a am mehdi or livecoder'));
+    socket.broadcast.emit('newMessage',generateMessage('Livecoder@live.com',"Hi i am livecoder and ..."));
     socket.on('createMessage',(message)=>{
        console.log('createMessage',message);
-       io.emit('newMessage',{
-          form:message.from,
-          text:message.text,
-           createdAt: new Date().getTime()
-       });
+       io.emit('newMessage',generateMessage(message.from,message.text));
     });
 });
 server.listen(port,()=>{
