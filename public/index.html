@@ -11,17 +11,13 @@
     var socket=io();
     socket.on('connect',()=>{
        console.log('new user omad!');
-       socket.emit('createEmail',{
-          to: 'livecoder@livecoder.com',
-          text:'this is me!'
 
-       });
     });
     socket.on('disconnect',()=>{
         console.log('now user is disconnect!');
     });
-    socket.on('newEmail',(email)=>{
-        console.log("New email!",email);
+    socket.on('newMessage',(newMessage)=>{
+       console.log('newMessage',newMessage);
     });
 </script>
 </body>

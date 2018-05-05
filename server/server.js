@@ -19,13 +19,14 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
        console.log('User is disconnected!');
     });
-    socket.emit('newEmail',{
-       from:"m.dev76@yahoo.com",
-        text:"Hi this a livecoder",
-        createAt:123
-    });
-    socket.on('createEmail',(newEmail)=>{
-       console.log('create new email',newEmail);
+
+    socket.on('createMessage',(message)=>{
+       console.log('createMessage',message);
+       io.emit('newMessage',{
+          form:message.from,
+          text:message.text,
+           createdAt: new Date().getTime()
+       });
     });
 });
 server.listen(port,()=>{
