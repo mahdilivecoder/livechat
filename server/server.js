@@ -19,7 +19,16 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
        console.log('User is disconnected!');
     });
-
+    socket.emit('newMessage',{
+      from:"livecoder@live.com",
+      text:"This is a chat app as a livecoder",
+        createdAt:new Date().getTime()
+    });
+    socket.broadcast.emit('newMessage',{
+       from:"live@livecoder.com",
+       text:"Hi this is a broadcast as admin! and New use has been joined!",
+       createdAt:new Date().getTime()
+    });
     socket.on('createMessage',(message)=>{
        console.log('createMessage',message);
        io.emit('newMessage',{
