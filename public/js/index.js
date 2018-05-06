@@ -7,18 +7,25 @@ socket.on('disconnect',function (){
     console.log('now user is disconnect!');
 });
 socket.on('newMessage',function (newMessage){
-    var formattedTime=moment().format('h:mm a');
-    var li=$('<li></li>');
-    li.text(newMessage.from+' '+formattedTime+':'+newMessage.text);
-    $('#message').append(li);
+    var formattedTime=moment(newMessage.createdAt).format('h:mm a');
+    var template=$('#message-template').html();
+    var html=Mustache.render(template,{
+        text:newMessage.text,
+        from:newMessage.from,
+        createdAt:formattedTime
+    });
+    $('#message').append(html);
+
 });
 socket.on('newLocationMessage',function(newlocation){
-   var li =$('<li></li>');
-   var a=$('<a target="_blank">My current location!</a>');
-    li.text(newlocation.from+':');
-   a.attr('href',newlocation.url);
-   li.append(a);
-    $('#message').append(li);
+    var formattedTime=moment(newlocation.createdAt).format('h:mm a');
+    var template=$('#location-message-template').html();
+    var html=Mustache.render(template,{
+       url:newlocation.url,
+       from:newlocation.from,
+       createdAt:formattedTime
+    });
+    $('#message').append(html);
 });
 $('#message-form').on('submit',function (e){
     e.preventDefault();
