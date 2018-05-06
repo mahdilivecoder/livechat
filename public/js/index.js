@@ -7,13 +7,14 @@ socket.on('disconnect',function (){
     console.log('now user is disconnect!');
 });
 socket.on('newMessage',function (newMessage){
+    var formattedTime=moment().format('h:mm a');
     var li=$('<li></li>');
-    li.text(newMessage.from+':'+newMessage.text);
+    li.text(newMessage.from+' '+formattedTime+':'+newMessage.text);
     $('#message').append(li);
 });
 socket.on('newLocationMessage',function(newlocation){
    var li =$('<li></li>');
-   var a=$('<a target="_blank">My current location</a>')
+   var a=$('<a target="_blank">My current location!</a>');
     li.text(newlocation.from+':');
    a.attr('href',newlocation.url);
    li.append(a);

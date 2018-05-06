@@ -19,7 +19,7 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
        console.log('User is disconnected!');
     });
-    socket.broadcast.emit('newMessage',generateMessage('Livecoder@live.com',"Hi i am livecoder and ..."));
+    socket.broadcast.emit('newMessage',generateMessage('Admin',"Welcome to the live chat!"));
     socket.on('createMessage',(message,callback)=>{
        console.log('createMessage',message);
        io.emit('newMessage',generateMessage(message.from,message.text));
