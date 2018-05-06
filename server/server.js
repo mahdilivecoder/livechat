@@ -20,9 +20,10 @@ io.on('connection',(socket)=>{
        console.log('User is disconnected!');
     });
     socket.broadcast.emit('newMessage',generateMessage('Livecoder@live.com',"Hi i am livecoder and ..."));
-    socket.on('createMessage',(message)=>{
+    socket.on('createMessage',(message,callback)=>{
        console.log('createMessage',message);
        io.emit('newMessage',generateMessage(message.from,message.text));
+       callback();
     });
     socket.on('createLocationMessage',(coords)=>{
         io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude+','+coords.longitude));
