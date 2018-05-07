@@ -1,4 +1,19 @@
 var socket=io();
+function scrollToBottom(){
+    var messages=$('#message');
+    var newMessage=messages.children('li:last-child');
+    var clientHeight=messages.prop(clientHeight);
+    var scrollTop=messages.prop(scrollTop);
+    var scrollHeight=messages.prop(scrollHeight);
+    var newMessageHeight=newMessage.innerHeight();
+    var lastMessageHeight=newMessage.prev().innerHeight();
+
+
+    if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight){
+       messages.scrollTop(scrollHeight);
+
+    }
+}
 socket.on('connect',function (){
     console.log('new user omad!');
 
@@ -15,6 +30,7 @@ socket.on('newMessage',function (newMessage){
         createdAt:formattedTime
     });
     $('#message').append(html);
+    scrollToBottom();
 
 });
 socket.on('newLocationMessage',function(newlocation){
@@ -26,6 +42,7 @@ socket.on('newLocationMessage',function(newlocation){
        createdAt:formattedTime
     });
     $('#message').append(html);
+    scrollToBottom();
 });
 $('#message-form').on('submit',function (e){
     e.preventDefault();
